@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chat Application</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/public/style.css">
+</head>
+<body>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            Users Online
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+        </div>
+      </div><!-- END COLUMN -->
+      <div class="col-lg-8">
+        <div class="card">
+          <h5 class="card-header">Messages</h5>
+          <div class="card-body">
+            <div class="overflow-auto" id="messageArea">
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-info" role="alert">
+                A simple info alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-dark" role="alert">
+                A simple dark alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-light" role="alert">
+                A simple light alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+              <div class="alert alert-secondary" role="alert">
+                A simple secondary alert—check it out!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card my-2">
+          <h5 class="card-header">Send a message</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" id="message" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+          </div>
+        </div>
+      </div><!-- END COLUMN -->
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io.connect('http://localhost:3000');
+
+    socket.on('message', function(data) {
+      console.log(data);
+      socket.emit('another event', { jane: 'I am great thank you'});
+    });
+  </script>
+</body>
+</html>
