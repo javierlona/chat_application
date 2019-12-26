@@ -122,12 +122,12 @@
     const message = document.querySelector('#message');
     const messageArea = document.querySelector('#messageArea');
 
-    form.addEventListener('submit', function(event) {
+    function send_users_message() {
       event.preventDefault();
       console.log("User submitted form: ", message.value);
       socket.emit('sendMessage', message.value);
       message.value = '';
-    });
+    }
 
     // This function appends the HTML
     socket.on('appendMessage', function(msg) {
@@ -141,6 +141,8 @@
       // Add the item to the parent element
       messageArea.append(newAlert);
     });
+
+    form.addEventListener('submit', send_users_message, false);
   </script>
 </body>
 </html>
