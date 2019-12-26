@@ -12,11 +12,28 @@
     #messageArea {
       height: 60vh;
     }
+    #chatArea {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container mt-2">
-    <div class="row">
+    <div class="row" id="enterUsernameArea">
+      <div class="col">
+        <form id="usernameForm">
+          <div class="form-group">
+            <label for="enterUsername">Enter your name</label>
+            <input type="text" class="form-control" id="enterUsername" value="">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row" id="chatArea">
       <div class="col-lg-4">
 
         <div class="card" style="width: 18rem;">
@@ -121,12 +138,20 @@
     const form = document.querySelector('#messageForm');
     const message = document.querySelector('#message');
     const messageArea = document.querySelector('#messageArea');
+    const usernameForm = document.querySelector('#usernameForm');
+    const enterUsernameArea = document.querySelector('#enterUsernameArea');
+    const enterUsername = document.querySelector('#enterUsername');
 
     function send_users_message() {
       event.preventDefault();
       console.log("User submitted form: ", message.value);
       socket.emit('sendMessage', message.value);
       message.value = '';
+    }
+
+    function new_user() {
+      event.preventDefault();
+      console.log(enterUsername.value);
     }
 
     // This function appends the HTML
@@ -143,6 +168,7 @@
     });
 
     form.addEventListener('submit', send_users_message, false);
+    usernameForm.addEventListener('submit', new_user, false);
   </script>
 </body>
 </html>
