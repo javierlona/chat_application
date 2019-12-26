@@ -18,6 +18,7 @@
   <div class="container mt-2">
     <div class="row">
       <div class="col-lg-4">
+
         <div class="card" style="width: 18rem;">
           <div class="card-header">
             Users Online
@@ -28,8 +29,10 @@
             <li class="list-group-item">Vestibulum at eros</li>
           </ul>
         </div>
+
       </div><!-- END COLUMN -->
       <div class="col-lg-8">
+
         <div class="card">
           <h5 class="card-header">Messages</h5>
           <div class="card-body">
@@ -103,6 +106,7 @@
             </form>
           </div>
         </div>
+
       </div><!-- END COLUMN -->
     </div>
   </div>
@@ -120,15 +124,14 @@
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-      console.log("User submitted form");
-      console.log(message.value);
-      socket.emit('message', message.value);
+      console.log("User submitted form: ", message.value);
+      socket.emit('sendMessage', message.value);
       message.value = '';
     });
 
     // This function appends the HTML
-    socket.on('message', function(msg) {
-      console.log('You sent: ', msg);
+    socket.on('appendMessage', function(msg) {
+      console.log('Client received: ', msg);
       // Create new div element where the alert will be placed
       newAlert = document.createElement("div");
       // Add the classes to the div element
