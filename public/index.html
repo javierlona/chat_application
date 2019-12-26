@@ -6,7 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat Application</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="/public/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+
+  <style>
+    #messageArea {
+      height: 60vh;
+    }
+  </style>
 </head>
 <body>
   <div class="container mt-2">
@@ -89,7 +95,7 @@
         <div class="card my-2">
           <h5 class="card-header">Send a message</h5>
           <div class="card-body">
-            <form>
+            <form id="messageForm">
               <div class="form-group">
                 <textarea class="form-control" id="message" rows="3"></textarea>
               </div>
@@ -108,10 +114,29 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io.connect('http://localhost:3000');
+    const form = document.querySelector('#messageForm');
+    const message = document.querySelector('#message');
+    const messageArea = document.querySelector('#messageArea');
 
-    socket.on('message', function(data) {
-      console.log(data);
-      socket.emit('another event', { jane: 'I am great thank you'});
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      console.log("User submitted form");
+      console.log(message.value);
+      socket.emit('message', message.value);
+      message.value = '';
+    });
+
+    // This function appends the HTML
+    socket.on('message', function(msg) {
+      console.log('You sent: ', msg);
+      // Create new div element where the alert will be placed
+      newAlert = document.createElement("div");
+      // Add the classes to the div element
+      newAlert.classList.add("alert", "alert-secondary");
+      // Add text content to the new div
+      newAlert.append(msg);
+      // Add the item to the parent element
+      messageArea.append(newAlert);
     });
   </script>
 </body>

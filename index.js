@@ -13,9 +13,10 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('user connected');
-  socket.emit('message', { javier: 'How are you'});
-  socket.on('another event', function(data) {
-    console.log(data);
-  })
+
+  socket.on('message', function(msg) {
+    console.log(`Message on index.js: ${msg}`);
+    io.emit('message', msg);
+  });
   
 })
