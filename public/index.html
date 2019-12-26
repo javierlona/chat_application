@@ -12,15 +12,12 @@
     #messageArea {
       height: 60vh;
     }
-    #chatArea {
-      display: none;
-    }
   </style>
 </head>
 <body>
   <div class="container mt-2">
     <div class="row" id="enterUsernameArea">
-      <div class="col">
+      <div class="col-md-6">
         <form id="usernameForm">
           <div class="form-group">
             <label for="enterUsername">Enter your name</label>
@@ -33,7 +30,7 @@
       </div>
     </div>
 
-    <div class="row" id="chatArea">
+    <div class="row d-none" id="chatArea">
       <div class="col-lg-4">
 
         <div class="card" style="width: 18rem;">
@@ -149,9 +146,21 @@
       message.value = '';
     }
 
-    function new_user() {
+    function add_user() {
       event.preventDefault();
-      console.log(enterUsername.value);
+      console.log("Username entered: ", enterUsername.value);
+
+      // socket.emit('add user', )
+      show_chat_area();
+      hide_user_form_area();
+    }
+
+    function hide_user_form_area() {
+      enterUsernameArea.classList.toggle("d-none");
+    }
+
+    function show_chat_area() {
+      chatArea.classList.toggle("d-none");
     }
 
     // This function appends the HTML
@@ -168,7 +177,7 @@
     });
 
     form.addEventListener('submit', send_users_message, false);
-    usernameForm.addEventListener('submit', new_user, false);
+    usernameForm.addEventListener('submit', add_user, false);
   </script>
 </body>
 </html>
