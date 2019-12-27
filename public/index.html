@@ -148,11 +148,11 @@
 
     function add_user() {
       event.preventDefault();
-      console.log("Username entered: ", enterUsername.value);
-
-      // socket.emit('add user', )
       show_chat_area();
       hide_user_form_area();
+      console.log("Username entered: ", enterUsername.value);
+      socket.emit('add user', enterUsername.value);
+      enterUsername.value = '';
     }
 
     function hide_user_form_area() {

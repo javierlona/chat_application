@@ -15,9 +15,15 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
   numOfUsers.push(socket);
   console.log('Users connected: %s', numOfUsers.length);
+
   socket.on('sendMessage', function(msg) {
     console.log(`Message on index.js: ${msg}`);
     io.emit('appendMessage', msg);
+  });
+
+  socket.on('add user', function(username) {
+    console.log(`Username in index.js: ${username}`);
+    io.emit('appendMessage', `${username} joined the chat.`);
   });
 
   socket.on('disconnect', function() {
