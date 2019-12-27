@@ -33,14 +33,12 @@
     <div class="row d-none" id="chatArea">
       <div class="col-lg-4">
 
-        <div class="card" style="width: 18rem;">
-          <div class="card-header">
+        <div class="card">
+          <h5 class="card-header">
             Users Online
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+          </h5>
+          <ul class="list-group list-group-flush" id="usersList">
+            <!-- DYNAMIC LIST OF USERS -->
           </ul>
         </div>
 
@@ -51,60 +49,6 @@
           <h5 class="card-header">Messages</h5>
           <div class="card-body">
             <div class="overflow-auto" id="messageArea">
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-info" role="alert">
-                A simple info alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-dark" role="alert">
-                A simple dark alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-light" role="alert">
-                A simple light alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
-              <div class="alert alert-secondary" role="alert">
-                A simple secondary alert—check it out!
-              </div>
             </div>
           </div>
         </div>
@@ -138,6 +82,7 @@
     const usernameForm = document.querySelector('#usernameForm');
     const enterUsernameArea = document.querySelector('#enterUsernameArea');
     const enterUsername = document.querySelector('#enterUsername');
+    const usersList = document.querySelector('#usersList');
 
     function send_users_message() {
       event.preventDefault();
@@ -174,6 +119,22 @@
       newAlert.append(msg);
       // Add the item to the parent element
       messageArea.append(newAlert);
+    });
+
+    socket.on('user left', function(data) {
+      console.log('User left socket.on: ', data.username);
+    });
+
+    socket.on('user joined', function(data) {
+      console.log('Client received: ', data.username);
+      // Create new div element where the alert will be placed
+      newUserItem = document.createElement("li");
+      // Add the classes to the div element
+      newUserItem.classList.add("list-group-item");
+      // Add text content to the new div
+      newUserItem.append(data.username);
+      // Add the item to the parent element
+      usersList.append(newUserItem);
     });
 
     form.addEventListener('submit', send_users_message, false);
