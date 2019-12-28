@@ -108,6 +108,18 @@
       chatArea.classList.toggle("d-none");
     }
 
+    function update_users_online(data) {
+      let output = "";
+      // Construct the output for each user
+      data.users.forEach(function(user){
+        output += `
+          <li class="list-group-item">${user}</li>
+        `;
+      })
+      // Display the content
+      usersList.innerHTML = output;
+    }
+
     // This function appends the HTML
     socket.on('appendMessage', function(msg) {
       console.log('Client received: ', msg);
@@ -122,21 +134,13 @@
     });
 
     socket.on('user left', function(data) {
-      console.log('User left socket.on: ', data.username);
+      console.log('User left socket.on: ', data);
+      update_users_online(data);
     });
     
     socket.on('user joined', function(data) {
       console.log('Client received: ', data);
-
-      let output = "";
-        // Construct the output for each user
-        data.users.forEach(function(user){
-          output += `
-            <li class="list-group-item">${user}</li>
-          `;
-        })
-        // Display the content
-        usersList.innerHTML = output;
+      update_users_online(data);
     });
 
     form.addEventListener('submit', send_users_message, false);
