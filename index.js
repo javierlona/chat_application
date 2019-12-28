@@ -19,6 +19,8 @@ io.on('connection', function(socket) {
 
   socket.on('sendMessage', function(msg) {
     console.log(`Message on index.js: ${msg}`);
+    console.log(`Message by: ${socket.username}`);
+    msg = `${socket.username}: ${msg}`;
     io.emit('appendMessage', msg);
   });
 

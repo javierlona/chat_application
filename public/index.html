@@ -86,7 +86,6 @@
 
     function send_users_message() {
       event.preventDefault();
-      console.log("User submitted form: ", message.value);
       socket.emit('sendMessage', message.value);
       message.value = '';
     }
@@ -95,7 +94,6 @@
       event.preventDefault();
       show_chat_area();
       hide_user_form_area();
-      console.log("Username entered: ", enterUsername.value);
       socket.emit('add user', enterUsername.value);
       enterUsername.value = '';
     }
@@ -120,9 +118,7 @@
       usersList.innerHTML = output;
     }
 
-    // This function appends the HTML
-    socket.on('appendMessage', function(msg) {
-      console.log('Client received: ', msg);
+    function display_message_on_screen(msg) {
       // Create new div element where the alert will be placed
       newAlert = document.createElement("div");
       // Add the classes to the div element
@@ -131,6 +127,11 @@
       newAlert.append(msg);
       // Add the item to the parent element
       messageArea.append(newAlert);
+    }
+
+    // This function appends the HTML
+    socket.on('appendMessage', function(msg) {
+      display_message_on_screen(msg);
     });
 
     socket.on('user left', function(data) {
@@ -139,7 +140,7 @@
     });
     
     socket.on('user joined', function(data) {
-      console.log('Client received: ', data);
+      console.log('user joined: ', data);
       update_users_online(data);
     });
 
