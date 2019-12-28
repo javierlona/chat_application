@@ -134,7 +134,7 @@
     });
 
     socket.on('user left', function(data) {
-      console.log('User left socket.on: ', data);
+      console.log('User left socket.on: ', data.username);
       update_users_online(data);
     });
     

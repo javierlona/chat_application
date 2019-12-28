@@ -34,14 +34,18 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnect', function() {
+    console.log("index.js left: ", socket.username);
+
+    let nameOfUserLeaving = socket.username;
+    
+    loggedInUsers.splice(loggedInUsers.indexOf(nameOfUserLeaving), 1);
     numOfUsers.pop(socket);
     console.log('User disconnected: %s Users connected', numOfUsers.length);
-    console.log(loggedInUsers.indexOf(socket.username));
     io.emit('user left', {
-      username: socket.username,
-
+      username: nameOfUserLeaving,
+      users: loggedInUsers,
     });
-    io.emit('appendMessage', 'User disconnected');
+    io.emit('appendMessage', `${nameOfUserLeaving} left the chat.`);
   });
   
 })
