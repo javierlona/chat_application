@@ -124,17 +124,19 @@
     socket.on('user left', function(data) {
       console.log('User left socket.on: ', data.username);
     });
-
+    
     socket.on('user joined', function(data) {
-      console.log('Client received: ', data.username);
-      // Create new div element where the alert will be placed
-      newUserItem = document.createElement("li");
-      // Add the classes to the div element
-      newUserItem.classList.add("list-group-item");
-      // Add text content to the new div
-      newUserItem.append(data.username);
-      // Add the item to the parent element
-      usersList.append(newUserItem);
+      console.log('Client received: ', data);
+
+      let output = "";
+        // Construct the output for each user
+        data.users.forEach(function(user){
+          output += `
+            <li class="list-group-item">${user}</li>
+          `;
+        })
+        // Display the content
+        usersList.innerHTML = output;
     });
 
     form.addEventListener('submit', send_users_message, false);

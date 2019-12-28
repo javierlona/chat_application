@@ -28,6 +28,7 @@ io.on('connection', function(socket) {
     loggedInUsers.push(socket.username);
     io.emit('user joined', {
       username: socket.username,
+      users: loggedInUsers,
     })
     io.emit('appendMessage', `${username} joined the chat.`);
   });
