@@ -18,14 +18,11 @@ io.on('connection', function(socket) {
   console.log('Users connected: %s', numOfUsers.length);
 
   socket.on('sendMessage', function(msg) {
-    console.log(`Message on index.js: ${msg}`);
-    console.log(`Message by: ${socket.username}`);
     msg = `${socket.username}: ${msg}`;
     io.emit('appendMessage', msg);
   });
 
   socket.on('add user', function(username) {
-    console.log(`Username in index.js: ${username}`);
     socket.username = username;
     loggedInUsers.push(socket.username);
     io.emit('user joined', {
@@ -36,8 +33,6 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnect', function() {
-    console.log("index.js left: ", socket.username);
-
     let nameOfUserLeaving = socket.username;
     
     loggedInUsers.splice(loggedInUsers.indexOf(nameOfUserLeaving), 1);
